@@ -1,0 +1,15 @@
+body {
+    font-family: 'Tahoma';
+}
+
+.clock_tile {
+    float: left;
+    padding: 10px;
+    margin: 10px;
+
+    background: lightskyblue;
+}
+
+#clock_roman {
+    font-family: 'Georgia';
+}
