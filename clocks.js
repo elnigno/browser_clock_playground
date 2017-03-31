@@ -10,50 +10,49 @@ function renderClockRoman(date) {
            + ":" + integerToRoman(date.getSeconds());
 }
 
+romanLiterals =
+[
+    [ "L", 50],
+    ["XL", 40],
+    [ "X", 10],
+    ["IX",  9],
+    [ "V",  5],
+    ["IV",  4],
+    [ "I",  1],
+];
+
 function integerToRoman(number)
 {
-    romanNumber = "";
-
-    if (number < 0 || number > 61) {
+    if (number < 0 || number > 60) {
         console.log("integerToRoman, input number out of range: " + number);
         return "";
     }
-
+    
     if (number == 0) {
         return "O";
     }
 
-    remainder = number;
-    if (number >= 50) {
-        romanNumber = "L";
-        remainder -= 50;
-    }
-    else if (number >= 40) {
-        romanNumber = "XL";
-        remainder -= 40;
-    }
-    else if (number >= 10) {
-        romanNumber = "X";
-        remainder -= 10;
-    }
-    else if (number >= 5) {
-        romanNumber = "V";
-        remainder -= 5;
-    }
-    else if (number >= 4) {
-        romanNumber = "IV";
-        remainder -= 4;
-    }
-    else {
-        romanNumber = "I";
-        remainder -= 1;
+    var romanNumber;
+    for (var i = 0; i < romanLiterals.length; ++i)
+    {
+        var romanLetter = romanLiterals[i][0];
+        var threshold = romanLiterals[i][1];
+
+        if (number >= threshold) {
+            romanNumber = romanLetter;
+            number -= threshold;
+            break;
+        }
     }
 
-    if (remainder > 0)
-        return romanNumber + integerToRoman(remainder);
-    else
-        return romanNumber;
+    if (number > 0) {
+        romanNumber += integerToRoman(number);
+    }
+
+    return romanNumber;
 }
+
+// Render clocks
 
 var date = new Date();
 var plainClockDiv = document.getElementById("clock_plain");
