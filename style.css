@@ -4,6 +4,7 @@ body {
 
 .clock_tile {
     float: left;
+    width: 20em;
     padding: 10px;
     margin: 10px;
 
@@ -15,7 +16,6 @@ body {
 }
 
 #clock_approximative_grid {
-    width: 30em;
     color: #000; /* Fallback for older browsers */
     color: rgba(0, 0, 0, 0.25);
 }

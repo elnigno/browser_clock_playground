@@ -54,12 +54,11 @@ function integerToRoman(number)
 
 function renderClockApproximative(date) {
     var hour = date.getHours();
-    var approximateMinutes = Math.round(date.getMinutes() / 5) * 5;
+    var approximateMinutes = (Math.round(date.getMinutes() / 5) * 5) % 60;
     var isSharp = approximateMinutes == 0;
 
     var hourWord = numberToWord[hour];
     var minuteWord = numberToWord[approximateMinutes];
-
 
     if (isSharp) {
         return  "It's " + hourWord + " sharp"; 
@@ -104,21 +103,29 @@ var numberToWord =
 
 function renderClockApproximativeGrid(date) {
     var hour = date.getHours();
-    var approximateMinutes = Math.round(date.getMinutes() / 5) * 5;
+    var approximateMinutes = (Math.round(date.getMinutes() / 5) * 5) % 60;
     var isSharp = approximateMinutes == 0;
 
     hourSpanId = "clock_approximative_grid_h" + hour;
     minutesSpanId = "clock_approximative_grid_m" + approximateMinutes;
 
+    renderClockApproximativeGridResetBold();
     renderClockApproximativeGridMakeBold("clock_approximative_grid_its");
 
-    if (isSharp) {
-        renderClockApproximativeGridMakeBold(hourSpanId);
-        renderClockApproximativeGridMakeBold("clock_approximative_grid_sharp");
-    } else {
+    if (!isSharp) {
         renderClockApproximativeGridMakeBold("clock_approximative_grid_about");
-        renderClockApproximativeGridMakeBold(hourSpanId);
-        renderClockApproximativeGridMakeBold(minutesSpanId);
+    }
+    
+    renderClockApproximativeGridMakeBold(hourSpanId);
+    renderClockApproximativeGridMakeBold(minutesSpanId);
+}
+
+function renderClockApproximativeGridResetBold(id)
+{
+    var div = document.getElementById("clock_approximative_grid");
+    for (var i = 0; i < div.children.length; ++i)
+    {
+        div.children[i].className = '';
     }
 }
 
@@ -130,14 +137,16 @@ function renderClockApproximativeGridMakeBold(id)
 
 // Render clocks
 
-var date = new Date();
 var plainClockDiv = document.getElementById("clock_plain");
-plainClockDiv.textContent = renderClockPlain(date);
-
 var romanClockDiv = document.getElementById("clock_roman");
-romanClockDiv.textContent = renderClockRoman(date);
-
 var approximativeClockDiv = document.getElementById("clock_approximative");
-approximativeClockDiv.textContent = renderClockApproximative(date);
 
-renderClockApproximativeGrid(date);
+function updateClocks() {
+    var date = new Date();
+    romanClockDiv.textContent = renderClockRoman(date);
+    plainClockDiv.textContent = renderClockPlain(date);
+    approximativeClockDiv.textContent = renderClockApproximative(date);
+    renderClockApproximativeGrid(date);
+}
+
+setInterval(updateClocks, 1000);
