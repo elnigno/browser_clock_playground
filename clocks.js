@@ -10,7 +10,7 @@ function renderClockRoman(date) {
            + ":" + integerToRoman(date.getSeconds());
 }
 
-romanLiterals =
+var romanLiterals =
 [
     [ "L", 50],
     ["XL", 40],
@@ -52,6 +52,55 @@ function integerToRoman(number)
     return romanNumber;
 }
 
+function renderClockApproximative(date) {
+    var hourWord = numberToWord[date.getHours()];
+
+    var approximateMinutes = Math.round(date.getMinutes() / 5) * 5;
+    var minuteWord = numberToWord[approximateMinutes];
+
+    var isSharp = date.getMinutes() % 5 == 0;
+
+    if (isSharp) {
+        return  "It's " + hourWord + " " + minuteWord + " sharp"; 
+    } else {
+        return  "It's about " + hourWord + " " + minuteWord; 
+    }
+}
+
+var numberToWord =
+{
+     0: "midnight",
+     1: "one",
+     2: "two",
+     3: "three",
+     4: "four",
+     5: "five",
+     6: "six",
+     7: "seven",
+     8: "eight",
+     9: "nine",
+    10: "ten",
+    11: "eleven",
+    13: "thirteen",
+    14: "fourteen",
+    15: "fifteen",
+    16: "fourteen",
+    17: "seventeen",
+    18: "eighteen",
+    19: "nineteen",
+    20: "twenty",
+    21: "twenty-one",
+    22: "twenty-two",
+    23: "twenty-three",
+    25: "twenty-five",
+    30: "thirty",
+    35: "thirty-five",
+    40: "fourty",
+    45: "fourty-five",
+    50: "fifty",
+    55: "fifty-five",
+};
+
 // Render clocks
 
 var date = new Date();
@@ -60,3 +109,6 @@ plainClockDiv.textContent = renderClockPlain(date);
 
 var romanClockDiv = document.getElementById("clock_roman");
 romanClockDiv.textContent = renderClockRoman(date);
+
+var approximativeClockDiv = document.getElementById("clock_approximative");
+approximativeClockDiv.textContent = renderClockApproximative(date);
