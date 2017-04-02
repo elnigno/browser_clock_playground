@@ -53,12 +53,13 @@ function integerToRoman(number)
 }
 
 function renderClockApproximative(date) {
-    var hourWord = numberToWord[date.getHours()];
-
+    var hour = date.getHours();
     var approximateMinutes = Math.round(date.getMinutes() / 5) * 5;
+    var isSharp = approximateMinutes == 0;
+
+    var hourWord = numberToWord[hour];
     var minuteWord = numberToWord[approximateMinutes];
 
-    var isSharp = date.getMinutes() / 5 == 0;
 
     if (isSharp) {
         return  "It's " + hourWord + " sharp"; 
@@ -102,21 +103,18 @@ var numberToWord =
 };
 
 function renderClockApproximativeGrid(date) {
-    var approximativeClockGridDiv = document.getElementById("clock_approximative_grid");
-    
     var hour = date.getHours();
-    hourSpanId = "clock_approximative_grid_h" + hour;
-
     var approximateMinutes = Math.round(date.getMinutes() / 5) * 5;
-    minutesSpanId = "clock_approximative_grid_m" + approximateMinutes;
+    var isSharp = approximateMinutes == 0;
 
-    var isSharp = date.getMinutes() / 5 == 0;
+    hourSpanId = "clock_approximative_grid_h" + hour;
+    minutesSpanId = "clock_approximative_grid_m" + approximateMinutes;
 
     renderClockApproximativeGridMakeBold("clock_approximative_grid_its");
 
     if (isSharp) {
         renderClockApproximativeGridMakeBold(hourSpanId);
-        renderClockApproximativeGridMakeBold("clock_approxiative_grid_sharp");
+        renderClockApproximativeGridMakeBold("clock_approximative_grid_sharp");
     } else {
         renderClockApproximativeGridMakeBold("clock_approximative_grid_about");
         renderClockApproximativeGridMakeBold(hourSpanId);
