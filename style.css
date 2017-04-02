@@ -24,3 +24,21 @@ body {
     color: #000; /* Fallback for older browsers */
     color: rgba(0, 0, 0, 1.5);
 }
+
+#clock_basic_svg_frame, 
+#clock_basic_svg_hours, 
+#clock_basic_svg_minutes, 
+#clock_basic_svg_seconds {
+    stroke:black;
+    fill: white;
+    stroke-width: 1px;
+}
+
+#clock_basic_svg_hours {
+    stroke-width: 3px;
+    stroke: red;
+}
+
+#clock_basic_svg_minutes {
+    stroke-width: 2px;
+}

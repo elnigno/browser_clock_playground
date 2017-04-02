@@ -1,8 +1,12 @@
+// Plain text clock
+
 function renderClockPlain(date) {
     return       date.getHours() + 
            ":" + date.getMinutes() +
            ":" + date.getSeconds();
 }
+
+// Roman clock
 
 function renderClockRoman(date) {
     return         integerToRoman(date.getHours())
@@ -51,6 +55,8 @@ function integerToRoman(number)
 
     return romanNumber;
 }
+
+// Approximate clock
 
 function renderClockApproximative(date) {
     var hour = date.getHours();
@@ -101,6 +107,8 @@ var numberToWord =
     55: "fifty-five",
 };
 
+// Approximate clock, grid
+
 function renderClockApproximativeGrid(date) {
     var hour = date.getHours();
     var approximateMinutes = (Math.round(date.getMinutes() / 5) * 5) % 60;
@@ -135,6 +143,37 @@ function renderClockApproximativeGridMakeBold(id)
     its.className = "clock_approximative_grid_emph";
 }
 
+// Basic Clock, SVG
+
+var clockSize = 100;
+var secondsHandLength = 0.8 * clockSize / 2;
+var minutesHandLength = 0.6 * clockSize / 2;
+var hoursHandLength   = 0.4 * clockSize / 2;
+
+function renderClockBasicSVG(date)
+{
+    var secondsRatio = date.getSeconds()/60;
+    renderClockBasicSVGDrawHand("clock_basic_svg_seconds", secondsRatio, secondsHandLength);
+
+    var minutesRatio = date.getMinutes()/60;
+    renderClockBasicSVGDrawHand("clock_basic_svg_minutes", minutesRatio, minutesHandLength);
+
+    var hoursRatio = (date.getHours() % 12) / 12;
+    renderClockBasicSVGDrawHand("clock_basic_svg_hours", hoursRatio, hoursHandLength);
+}
+
+function renderClockBasicSVGDrawHand(elementId, ratio, handLength)
+{
+    var element = document.getElementById(elementId);
+    var x2 = handLength * Math.sin(ratio * 2 * Math.PI);
+    var y2 = handLength * Math.cos(Math.PI - ratio * 2 * Math.PI);
+
+    element.setAttribute("x1", clockSize/2  );
+    element.setAttribute("y1", clockSize/2  );
+    element.setAttribute("x2", clockSize/2 + x2);
+    element.setAttribute("y2", clockSize/2 + y2);
+}
+
 // Render clocks
 
 var plainClockDiv = document.getElementById("clock_plain");
@@ -147,6 +186,7 @@ function updateClocks() {
     plainClockDiv.textContent = renderClockPlain(date);
     approximativeClockDiv.textContent = renderClockApproximative(date);
     renderClockApproximativeGrid(date);
+    renderClockBasicSVG(date);
 }
 
 setInterval(updateClocks, 1000);
