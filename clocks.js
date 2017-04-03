@@ -145,10 +145,11 @@ function renderClockApproximativeGridMakeBold(id)
 
 // Basic Clock, SVG
 
-var clockSize = 100;
-var secondsHandLength = 0.8 * clockSize / 2;
-var minutesHandLength = 0.6 * clockSize / 2;
-var hoursHandLength   = 0.4 * clockSize / 2;
+var clockSize = 200;
+var halfClockSize = clockSize / 2;
+var secondsHandLength = 0.8 * halfClockSize;
+var minutesHandLength = 0.6 * halfClockSize;
+var hoursHandLength   = 0.4 * halfClockSize;
 
 function renderClockBasicSVG(date)
 {
@@ -168,10 +169,10 @@ function renderClockBasicSVGDrawHand(elementId, ratio, handLength)
     var x2 = handLength * Math.sin(ratio * 2 * Math.PI);
     var y2 = handLength * Math.cos(Math.PI - ratio * 2 * Math.PI);
 
-    element.setAttribute("x1", clockSize/2  );
-    element.setAttribute("y1", clockSize/2  );
-    element.setAttribute("x2", clockSize/2 + x2);
-    element.setAttribute("y2", clockSize/2 + y2);
+    element.setAttribute("x1", halfClockSize  );
+    element.setAttribute("y1", halfClockSize  );
+    element.setAttribute("x2", halfClockSize + x2);
+    element.setAttribute("y2", halfClockSize + y2);
 }
 
 // Render clocks
