@@ -84,11 +84,26 @@
     <div class="clock_tile">
         <h2>Basic, SVG</h2>
         <div id="clock_basic_svg">
-            <svg height="200" width="200">
+            <svg height="350" width="200">
                 <circle id="clock_basic_svg_frame"   cx="100" cy="100" r=99></circle>
                 <line   id="clock_basic_svg_hours"   ></line>
                 <line   id="clock_basic_svg_minutes" ></line>
                 <line   id="clock_basic_svg_seconds" ></line>
+                <g transform="rotate(100 200)">
+                    <animateTransform attributeName="transform" 
+                                      attributeType="XML"
+                                      type="rotate" 
+                                      from="-20 100 200" 
+                                      to="-20 100 200"
+                                      values="-20 100 200; 20 100 200; -20 100 200"
+                                      keyTimes="0.0; 0.5; 1.0"
+                                      begin="0s"
+                                      dur="2s"
+                                      fill="freeze"
+                                      repeatCount="indefinite"/>
+                    <line id="clock_basic_svg_pendulum_bar" x1="100" y1="200" x2="100" y2="300"></line>
+                    <circle id="clock_basic_svg_pendulum_weight" cx="100" cy="300" r=25></circle>
+                </g>
             </svg>
         </div>
     </div>

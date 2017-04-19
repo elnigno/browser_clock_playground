@@ -42,3 +42,15 @@ body {
 #clock_basic_svg_minutes {
     stroke-width: 2px;
 }
+
+#clock_basic_svg_pendulum_bar {
+    stroke: black;
+    fill: white;
+    stroke-width: 5px;
+}
+
+#clock_basic_svg_pendulum_weight {
+    stroke: black;
+    fill: black;
+    stroke-width: 1px;
+}
