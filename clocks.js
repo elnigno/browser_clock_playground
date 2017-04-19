@@ -87,6 +87,7 @@ var numberToWord =
      9: "nine",
     10: "ten",
     11: "eleven",
+    12: "twelve",
     13: "thirteen",
     14: "fourteen",
     15: "fifteen",
@@ -175,6 +176,17 @@ function renderClockBasicSVGDrawHand(elementId, ratio, handLength)
     element.setAttribute("y2", halfClockSize + y2);
 }
 
+// Run a few tests
+function runTests() {
+    {
+        var date = new Date(2017, 03, 19, 12, 12, 12);
+        var result = renderClockApproximative(date);
+        if (result != "It's about twelve ten") {
+            console.log("TEST FAILURE!!! Expected: 'It's about twelve ten', Actual: '" + result + "'");
+        }
+    }
+}
+
 // Render clocks
 
 var plainClockDiv = document.getElementById("clock_plain");
@@ -190,4 +202,5 @@ function updateClocks() {
     renderClockBasicSVG(date);
 }
 
+runTests();
 setInterval(updateClocks, 1000);
